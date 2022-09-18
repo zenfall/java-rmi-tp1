@@ -22,7 +22,10 @@ public class IOperationImpl implements IOperation {
     public Utilisateur creerUtilisateur(Utilisateur utilisateur) throws RemoteException {
        int id = utilisateurs.size()+1;
        utilisateur.setId(String.format("U%d",id));
-       return this.utilisateurs.put(utilisateur.getId(),utilisateur);
+       this.utilisateurs.put(utilisateur.getId(),utilisateur);
+        System.out.println(utilisateurs.get(utilisateur.getId()));
+
+       return utilisateurs.get(utilisateur.getId());
 
 
     }
@@ -39,16 +42,23 @@ public class IOperationImpl implements IOperation {
 
     @Override
     public Compte debiterCompte(Compte compte, double montant) throws RemoteException, CompteDebitException {
-        return null;
+        Compte utilisateurCompte = comptes.get(compte.getCompteId());
+        utilisateurCompte.debiterCompte(montant);
+        return utilisateurCompte;
     }
 
     @Override
     public Compte crediterCompte(Compte compte, double montant) throws RemoteException {
-        return null;
+        Compte utilisateurCompte = comptes.get(compte.getCompteId());
+        utilisateurCompte.crediterCompte(montant);
+        return utilisateurCompte;
     }
 
     @Override
     public double consulterCompte(Compte compte) throws RemoteException {
-        return 0;
+        Compte utilisateurCompte = comptes.get(compte.getCompteId());
+
+        return utilisateurCompte.getSolde();
+
     }
 }

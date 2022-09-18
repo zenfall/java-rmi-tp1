@@ -1,5 +1,7 @@
 package sn.supdeco.gescompte.models;
 
+import sn.supdeco.gescompte.exceptions.CompteDebitException;
+
 public class Compte {
     private String compteId;
     private double solde;
@@ -34,4 +36,19 @@ public class Compte {
     public void setUtilisateur(Utilisateur utilisateur) {
         this.utilisateur = utilisateur;
     }
+
+    public void debiterCompte(double montant) throws CompteDebitException {
+        double soldeRestant = solde - montant;
+        if(soldeRestant < - 1000){
+            throw new CompteDebitException(String.format("votre compte ne peut etre debiter de %s", montant));
+
+        }
+        setSolde(soldeRestant);
+    }
+
+    public void crediterCompte(double montant ) {
+        setSolde(solde + montant);
+    }
+
+
 }

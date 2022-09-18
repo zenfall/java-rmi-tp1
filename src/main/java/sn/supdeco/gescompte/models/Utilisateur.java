@@ -1,7 +1,9 @@
 package sn.supdeco.gescompte.models;
 
 
-public class Utilisateur {
+import java.io.Serializable;
+
+public class Utilisateur implements Serializable {
     private String id;
     private String nom;
     private String prenom;
