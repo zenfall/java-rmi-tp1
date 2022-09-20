@@ -33,9 +33,12 @@ public class IOperationImpl implements IOperation {
     @Override
     public Compte creerCompte(Utilisateur utilisateur) throws RemoteException {
        int id = comptes.size()+1;
+        System.out.println(id);
 
         Compte compte = new Compte(String.format("C%d",id), 10000, utilisateur);
-        return comptes.put(compte.getCompteId(),compte);
+        comptes.put(compte.getCompteId(),compte);
+
+        return comptes.get(compte.getCompteId());
 
 
     }
